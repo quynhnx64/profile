@@ -12,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CodeTerminalCard, DevAtmosphere } from "@/components/dev-atmosphere";
 import { siteContentQuery } from "@/lib/site-content.functions";
 import { getIcon, type Project } from "@/lib/site-content";
+import { buildPageHead } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
 const CV_URL = "/Nguyen-Xuan-Quynh-CV.pdf";
@@ -19,16 +20,13 @@ const CV_FILENAME = "Nguyen-Xuan-Quynh-CV.pdf";
 const AVATAR_URL = "/avatar.jpg";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Nguyễn Xuân Quỳnh — Web & Backend Developer" },
-      { name: "description", content: "Portfolio của Nguyễn Xuân Quỳnh — Web & Backend: Directus API, Next.js, game realtime uGOLD, nền tảng white-label Webtudong." },
-      { property: "og:title", content: "Nguyễn Xuân Quỳnh — Web & Backend Developer" },
-      { property: "og:description", content: "Web apps và API backend cho sản phẩm thực tế — SOC API Platform, uGOLD, Webtudong, Chat E2EE." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => {
+    const { meta, links } = buildPageHead({
+      path: "/",
+      type: "website",
+    });
+    return { meta, links };
+  },
   loader: ({ context }) => context.queryClient.ensureQueryData(siteContentQuery),
   component: PortfolioPage,
 });
@@ -211,7 +209,7 @@ function PortfolioPage() {
         )}
       </header>
 
-      <div ref={scrollerRef} className="page-scroller">
+      <div ref={scrollerRef} className="page-scroller app-scroller">
       {/* Trang chủ */}
       <section id="top" data-section className="snap-section is-visible border-b border-border/60">
         <div className="snap-section-inner">
@@ -297,29 +295,10 @@ function PortfolioPage() {
 
       <Section id="du-an">
         <SectionHeading kicker="02 / Dự án" title="Sản phẩm đã triển khai." />
-        <div className="mt-10 grid border-l border-t border-border md:grid-cols-2 xl:grid-cols-3">
-          {c.projects.map((p, i) => {
-            const Icon = getIcon(p.icon);
-            return (
-              <article key={p.id} data-reveal className="group flex flex-col border-b border-r border-border bg-background/80 p-6 backdrop-blur-sm transition-[background-color,transform] duration-300 hover:-translate-y-1 hover:bg-card/90 md:p-7">
-                <div className="flex items-start justify-between">
-                  <span className="font-mono text-xs text-primary">{pad(i)} · {p.category}</span>
-                  <Icon className="size-6 text-muted-foreground transition-colors group-hover:text-primary" />
-                </div>
-                <h3 className="mt-6 text-2xl font-bold">{p.title}</h3>
-                <p className="mt-2 font-mono text-[0.7rem] uppercase tracking-wide text-primary">{p.role}</p>
-                <p className="mt-3 text-sm leading-6 text-muted-foreground">{p.description}</p>
-                <p className="mt-4 border-l-2 border-primary pl-3 text-sm font-medium">{p.result}</p>
-                <div className="mt-5 flex flex-wrap gap-1.5">
-                  {p.tags.map((t) => <span key={t} className="border border-border px-2 py-0.5 font-mono text-[0.62rem] uppercase text-muted-foreground">{t}</span>)}
-                </div>
-                <Button className="mt-6 w-full justify-between" variant="outline" onClick={() => setSelected({ p, i })}>
-                  {p.url ? "Xem trực tiếp" : "Xem chi tiết"} <ArrowRight />
-                </Button>
-              </article>
-            );
-          })}
-        </div>
+        <FeaturedProjects
+          projects={c.projects}
+          onOpen={(p, i) => setSelected({ p, i })}
+        />
       </Section>
 
       <Section id="cong-nghe">
@@ -351,7 +330,6 @@ function PortfolioPage() {
             ))}
           </div>
         </div>
-        <div className="mt-6 flex items-center gap-3 font-mono text-[0.65rem] uppercase text-muted-foreground"><span className="h-px w-10 bg-primary" /> Di chuyển để khám phá · Rê chuột để tạm dừng</div>
       </Section>
 
       <Section id="kinh-nghiem">
@@ -438,6 +416,127 @@ function SectionHeading({ kicker, title }: { kicker: string; title: string }) {
   );
 }
 
+const PROJECT_AUTO_MS = 5000;
+
+function FeaturedProjects({
+  projects,
+  onOpen,
+}: {
+  projects: Project[];
+  onOpen: (p: Project, i: number) => void;
+}) {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const n = projects.length;
+  const i = n === 0 ? 0 : ((active % n) + n) % n;
+  const p = projects[i];
+
+  useEffect(() => {
+    if (n <= 1 || paused) return;
+    const t = setInterval(() => setActive((x) => (x + 1) % n), PROJECT_AUTO_MS);
+    return () => clearInterval(t);
+  }, [n, paused]);
+
+  if (!p || n === 0) return null;
+
+  const Icon = getIcon(p.icon);
+  const listCopies = [0, 1] as const;
+
+  const renderItem = (proj: Project, idx: number, copy: number) => {
+    const on = idx === i;
+    return (
+      <button
+        key={`${copy}-${proj.id}`}
+        type="button"
+        role="option"
+        aria-selected={on}
+        tabIndex={copy === 0 ? 0 : -1}
+        onClick={() => setActive(idx)}
+        className={cn(
+          "shrink-0 border px-3 py-2.5 text-left transition-colors lg:w-full lg:rounded-none lg:border-0 lg:border-l-2 lg:px-4 lg:py-3",
+          on
+            ? "border-primary bg-primary/10 text-foreground lg:border-l-primary lg:bg-primary/10"
+            : "border-border bg-background/60 text-muted-foreground hover:border-primary/40 hover:text-foreground lg:border-l-transparent lg:bg-transparent lg:hover:bg-card/50",
+        )}
+      >
+        <span className="font-mono text-[0.65rem] text-primary">{pad(idx)}</span>
+        <span className="mt-0.5 block text-sm font-semibold leading-snug">{proj.title}</span>
+        <span className="mt-0.5 hidden font-mono text-[0.62rem] uppercase text-muted-foreground lg:block">
+          {proj.category}
+        </span>
+      </button>
+    );
+  };
+
+  return (
+    <div
+      className="mt-8 grid min-h-0 gap-5 lg:grid-cols-[minmax(14rem,0.38fr)_1fr] lg:items-stretch lg:gap-8"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setPaused(false);
+      }}
+    >
+      {/* List chạy liên tục — không scrollbar */}
+      <div
+        className={cn(
+          "project-marquee lg:h-[min(52vh,28rem)] lg:border-l lg:border-border",
+          paused && "is-paused",
+        )}
+        role="listbox"
+        aria-label="Danh sách dự án"
+      >
+        <div className="project-marquee-track flex w-max gap-2 lg:w-full lg:flex-col lg:gap-0">
+          {listCopies.map((copy) => (
+            <div
+              key={copy}
+              className="flex gap-2 lg:w-full lg:flex-col lg:gap-0"
+              aria-hidden={copy === 1}
+            >
+              {projects.map((proj, idx) => renderItem(proj, idx, copy))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <article
+        key={p.id}
+        className="flex min-h-0 flex-col border border-border bg-background/80 p-5 backdrop-blur-sm md:p-7"
+        aria-live="polite"
+      >
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <p className="font-mono text-xs text-primary">
+              {pad(i)} · {p.category}
+            </p>
+            <h3 className="mt-3 text-2xl font-bold md:text-3xl">{p.title}</h3>
+            <p className="mt-2 font-mono text-[0.7rem] uppercase tracking-wide text-primary">{p.role}</p>
+          </div>
+          <Icon className="size-7 shrink-0 text-muted-foreground" />
+        </div>
+
+        <p className="mt-4 text-sm leading-6 text-muted-foreground md:text-[0.95rem]">{p.description}</p>
+        <p className="mt-4 border-l-2 border-primary pl-3 text-sm font-medium">{p.result}</p>
+
+        <div className="mt-5 flex flex-wrap gap-1.5">
+          {p.tags.map((t) => (
+            <span key={t} className="border border-border px-2 py-0.5 font-mono text-[0.62rem] uppercase text-muted-foreground">
+              {t}
+            </span>
+          ))}
+        </div>
+
+        <div className="mt-auto pt-6">
+          <Button className="justify-between gap-3 sm:min-w-[12rem]" variant="outline" onClick={() => onOpen(p, i)}>
+            {p.url ? "Xem trực tiếp" : "Xem chi tiết"} <ArrowRight />
+          </Button>
+        </div>
+      </article>
+    </div>
+  );
+}
+
 function ProjectReview({ selected, onClose }: { selected: { p: Project; i: number } | null; onClose: () => void }) {
   if (!selected) return null;
   const { p: project, i } = selected;
@@ -463,9 +562,6 @@ function ProjectReview({ selected, onClose }: { selected: { p: Project; i: numbe
           {project.url && (
             <TabsContent value="live" className="relative mt-0 min-h-0 flex-1 bg-muted/30">
               <iframe src={project.url} title={`Xem trực tiếp ${project.title}`} className="absolute inset-0 h-full w-full border-0" sandbox="allow-forms allow-modals allow-popups allow-same-origin allow-scripts" />
-              <div className="pointer-events-none absolute bottom-4 left-1/2 w-max max-w-[90%] -translate-x-1/2 bg-background/90 px-3 py-2 text-center text-[0.65rem] text-muted-foreground shadow-lg backdrop-blur">
-                Không thấy nội dung? Website này chặn hiển thị nhúng — hãy bấm nút mở tab mới ở góc trên.
-              </div>
             </TabsContent>
           )}
           <TabsContent value="specs" className="mt-0 min-h-0 flex-1 overflow-y-auto p-6 md:p-10">

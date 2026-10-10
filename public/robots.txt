@@ -1,8 +1,15 @@
+# Portfolio Nguyễn Xuân Quỳnh
+# Thay https://YOUR_DOMAIN bằng domain production (khớp VITE_SITE_URL).
+
 User-agent: Googlebot
 Allow: /
+Disallow: /edit
+Disallow: /pratice
 
 User-agent: Bingbot
 Allow: /
+Disallow: /edit
+Disallow: /pratice
 
 User-agent: Twitterbot
 Allow: /
@@ -10,5 +17,33 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
+User-agent: GPTBot
+Allow: /
+Disallow: /edit
+Disallow: /pratice
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /edit
+Disallow: /pratice
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /edit
+Disallow: /pratice
+
 User-agent: *
 Allow: /
+Disallow: /edit
+Disallow: /pratice
+
+Sitemap: https://YOUR_DOMAIN/sitemap.xml

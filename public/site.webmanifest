@@ -1,0 +1,37 @@
+{
+  "name": "Nguyễn Xuân Quỳnh — Web & Backend Developer",
+  "short_name": "NXQ Portfolio",
+  "description": "Portfolio Web & Backend Developer — Next.js, Directus API, realtime, multi-tenant SaaS.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07110f",
+  "theme_color": "#07110f",
+  "lang": "vi",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "type": "image/png",
+      "sizes": "180x180",
+      "purpose": "any"
+    }
+  ]
+}

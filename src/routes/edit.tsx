@@ -19,12 +19,9 @@ export const Route = createFileRoute("/edit")({
   head: () => ({
     meta: [
       { title: "Quản trị nội dung — Portfolio Nguyễn Xuân Quỳnh" },
-      { name: "description", content: "Trang chỉnh sửa nội dung portfolio." },
-      { property: "og:title", content: "Quản trị nội dung — Portfolio" },
-      { property: "og:description", content: "Trang chỉnh sửa nội dung portfolio." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "robots", content: "noindex" },
+      { name: "description", content: "Trang chỉnh sửa nội dung portfolio (nội bộ)." },
+      { name: "robots", content: "noindex, nofollow" },
+      { name: "googlebot", content: "noindex, nofollow" },
     ],
   }),
   component: EditPage,

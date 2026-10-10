@@ -11,6 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EditRouteImport } from './routes/edit'
+import { Route as PraticeRouteImport } from './routes/pratice'
+import { Route as PraticeIndexRouteImport } from './routes/pratice/index'
+import { Route as PraticeEdRouteImport } from './routes/pratice/ed'
+import { Route as PraticeSEsRouteImport } from './routes/pratice/s-es'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +26,71 @@ const EditRoute = EditRouteImport.update({
   path: '/edit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PraticeRoute = PraticeRouteImport.update({
+  id: '/pratice',
+  path: '/pratice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PraticeIndexRoute = PraticeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PraticeRoute,
+} as any)
+const PraticeEdRoute = PraticeEdRouteImport.update({
+  id: '/ed',
+  path: '/ed',
+  getParentRoute: () => PraticeRoute,
+} as any)
+const PraticeSEsRoute = PraticeSEsRouteImport.update({
+  id: '/s-es',
+  path: '/s-es',
+  getParentRoute: () => PraticeRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/edit': typeof EditRoute
+  '/pratice': typeof PraticeRouteWithChildren
+  '/pratice/ed': typeof PraticeEdRoute
+  '/pratice/s-es': typeof PraticeSEsRoute
+  '/pratice/': typeof PraticeIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/edit': typeof EditRoute
+  '/pratice/ed': typeof PraticeEdRoute
+  '/pratice/s-es': typeof PraticeSEsRoute
+  '/pratice': typeof PraticeIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/edit': typeof EditRoute
+  '/pratice': typeof PraticeRouteWithChildren
+  '/pratice/ed': typeof PraticeEdRoute
+  '/pratice/s-es': typeof PraticeSEsRoute
+  '/pratice/': typeof PraticeIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/edit'
+  fullPaths:
+    '/' | '/edit' | '/pratice' | '/pratice/ed' | '/pratice/s-es' | '/pratice/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/edit'
-  id: '__root__' | '/' | '/edit'
+  to: '/' | '/edit' | '/pratice/ed' | '/pratice/s-es' | '/pratice'
+  id:
+    | '__root__'
+    | '/'
+    | '/edit'
+    | '/pratice'
+    | '/pratice/ed'
+    | '/pratice/s-es'
+    | '/pratice/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EditRoute: typeof EditRoute
+  PraticeRoute: typeof PraticeRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +109,56 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EditRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pratice': {
+      id: '/pratice'
+      path: '/pratice'
+      fullPath: '/pratice'
+      preLoaderRoute: typeof PraticeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pratice/': {
+      id: '/pratice/'
+      path: '/'
+      fullPath: '/pratice/'
+      preLoaderRoute: typeof PraticeIndexRouteImport
+      parentRoute: typeof PraticeRoute
+    }
+    '/pratice/ed': {
+      id: '/pratice/ed'
+      path: '/ed'
+      fullPath: '/pratice/ed'
+      preLoaderRoute: typeof PraticeEdRouteImport
+      parentRoute: typeof PraticeRoute
+    }
+    '/pratice/s-es': {
+      id: '/pratice/s-es'
+      path: '/s-es'
+      fullPath: '/pratice/s-es'
+      preLoaderRoute: typeof PraticeSEsRouteImport
+      parentRoute: typeof PraticeRoute
+    }
   }
 }
+
+interface PraticeRouteChildren {
+  PraticeEdRoute: typeof PraticeEdRoute
+  PraticeSEsRoute: typeof PraticeSEsRoute
+  PraticeIndexRoute: typeof PraticeIndexRoute
+}
+
+const PraticeRouteChildren: PraticeRouteChildren = {
+  PraticeEdRoute: PraticeEdRoute,
+  PraticeSEsRoute: PraticeSEsRoute,
+  PraticeIndexRoute: PraticeIndexRoute,
+}
+
+const PraticeRouteWithChildren =
+  PraticeRoute._addFileChildren(PraticeRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EditRoute: EditRoute,
+  PraticeRoute: PraticeRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

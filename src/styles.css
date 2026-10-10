@@ -300,33 +300,37 @@
 .animate-float-c { animation: float-c 3.8s ease-in-out infinite; }
 .animate-caret { animation: caret-blink 0.85s step-end infinite; }
 
-/* Page scroller: full-page snap, căn giữa viewport */
-.page-scroller {
-  position: absolute;
-  inset: 0;
-  z-index: 10;
+/* Thanh scroll chung (portfolio + practice, …) */
+.app-scroller {
   overflow-x: hidden;
   overflow-y: auto;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
   overscroll-behavior-y: contain;
   -webkit-overflow-scrolling: touch;
   touch-action: pan-y;
   scrollbar-width: thin;
   scrollbar-color: color-mix(in oklab, var(--primary) 55%, transparent) transparent;
 }
-.page-scroller::-webkit-scrollbar {
+.app-scroller::-webkit-scrollbar {
   width: 5px;
 }
-.page-scroller::-webkit-scrollbar-track {
+.app-scroller::-webkit-scrollbar-track {
   background: transparent;
 }
-.page-scroller::-webkit-scrollbar-thumb {
+.app-scroller::-webkit-scrollbar-thumb {
   background: color-mix(in oklab, var(--primary) 50%, transparent);
   border-radius: 999px;
 }
-.page-scroller::-webkit-scrollbar-thumb:hover {
+.app-scroller::-webkit-scrollbar-thumb:hover {
   background: color-mix(in oklab, var(--primary) 75%, transparent);
+}
+
+/* Page scroller: full-page snap, căn giữa viewport */
+.page-scroller {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
 }
 
 .page-scroller .snap-section {
@@ -388,6 +392,37 @@ html.portfolio-lock body::-webkit-scrollbar {
   animation-play-state: paused;
 }
 
+@keyframes marquee-y {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
+.project-marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
+  scrollbar-width: none;
+}
+.project-marquee::-webkit-scrollbar {
+  display: none;
+}
+.project-marquee-track {
+  animation: marquee-y 28s linear infinite;
+  will-change: transform;
+}
+.project-marquee.is-paused .project-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (max-width: 1023px) {
+  .project-marquee {
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  }
+  .project-marquee-track {
+    animation-name: marquee-x;
+    animation-duration: 22s;
+  }
+}
+
 [data-reveal] {
   opacity: 0;
   transform: translateY(18px);
@@ -413,7 +448,8 @@ html.portfolio-lock body::-webkit-scrollbar {
     transition-duration: 0.01ms !important;
   }
   [data-reveal] { opacity: 1; transform: none; }
-  .tech-marquee-track { animation: none; }
+  .tech-marquee-track,
+  .project-marquee-track { animation: none; }
   .code-float-line { opacity: 0.2; transform: none; }
   .ambient-orb { animation: none; }
   .code-rain { animation: none; }

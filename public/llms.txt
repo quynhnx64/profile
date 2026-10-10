@@ -1,0 +1,36 @@
+# Nguyễn Xuân Quỳnh
+
+> Web & Backend Developer tại Dĩ An, TP. Hồ Chí Minh, Việt Nam. Xây giao diện web và API backend cho sản phẩm thực tế.
+
+## Identity
+
+- Name: Nguyễn Xuân Quỳnh (Nguyen Xuan Quynh)
+- Role: Web & Backend Developer
+- Location: Dĩ An, TP. Hồ Chí Minh, Vietnam
+- Email: quynhnx64@gmail.com
+- GitHub: https://github.com/quynhnx64
+- Education: FPT Polytechnic — Lập trình Mobile (Xuất sắc, GPA 3.7)
+
+## Expertise
+
+- Frontend: React, Next.js, TypeScript, Tailwind, Phaser 3
+- Backend / API: Directus Extensions (Endpoint, Hook, Operation), REST, OpenAPI, WebSocket, OAuth/OIDC/SSO, Redis
+- Data: Directus CMS, PostgreSQL, MySQL
+- Platforms: Multi-tenant / white-label SaaS, realtime systems, Web3 wallets (ethers.js, Solana)
+
+## Notable projects
+
+- SOC API Platform — Directus API hub (banking ledger, wallet, OCR, auth): https://api-hub.socjsc.com
+- uGOLD — realtime web game (Next.js + Phaser 3): https://play.ugold.io
+- Webtudong — white-label / multi-tenant website platform: https://webtudong.com
+- Web Chat E2EE — Matrix/Element enterprise chat: https://chat.socjsc.com
+
+## Experience
+
+- 10/2024 – 05/2026 · Công ty Cổ phần SOC · Web & Backend Developer
+- 20+ projects from requirements to go-live & operations
+
+## Contact / hire
+
+Sẵn sàng cho cơ hội Web, API backend, realtime và triển khai sản phẩm end-to-end.
+Primary page: /
