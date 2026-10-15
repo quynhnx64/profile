@@ -1,6 +1,16 @@
 export type PracticeTopic = {
   id: string;
-  path: "/pratice/ed" | "/pratice/s-es" | "/pratice/ly" | "/pratice/compare";
+  path:
+    | "/pratice/ed"
+    | "/pratice/s-es"
+    | "/pratice/ly"
+    | "/pratice/compare"
+    | "/pratice/plurals"
+    | "/pratice/ing"
+    | "/pratice/adv-compare"
+    | "/pratice/neg-prefix"
+    | "/pratice/noun-suffix"
+    | "/pratice/adj-suffix";
   title: string;
   subtitle: string;
   available: boolean;
@@ -23,6 +33,20 @@ export const PRACTICE_TOPICS: PracticeTopic[] = [
     available: true,
   },
   {
+    id: "ing",
+    path: "/pratice/ing",
+    title: "Động từ -ing",
+    subtitle: "Bỏ -e · gấp đôi CVC · -ie → -ying",
+    available: true,
+  },
+  {
+    id: "plurals",
+    path: "/pratice/plurals",
+    title: "Danh từ số nhiều",
+    subtitle: "-s / -es / -ies / -ves · bất quy tắc",
+    available: true,
+  },
+  {
     id: "ly",
     path: "/pratice/ly",
     title: "Tính từ → trạng từ (-ly)",
@@ -32,8 +56,36 @@ export const PRACTICE_TOPICS: PracticeTopic[] = [
   {
     id: "compare",
     path: "/pratice/compare",
-    title: "So sánh hơn / nhất",
+    title: "So sánh tính từ",
     subtitle: "-er / -est · more / most · bất quy tắc",
+    available: true,
+  },
+  {
+    id: "adv-compare",
+    path: "/pratice/adv-compare",
+    title: "So sánh trạng từ",
+    subtitle: "faster · more carefully · well/better/best",
+    available: true,
+  },
+  {
+    id: "neg-prefix",
+    path: "/pratice/neg-prefix",
+    title: "Tiền tố phủ định",
+    subtitle: "un- · in-/im-/il-/ir- · dis- · non-",
+    available: true,
+  },
+  {
+    id: "noun-suffix",
+    path: "/pratice/noun-suffix",
+    title: "Hậu tố → danh từ",
+    subtitle: "-ness · -ment · -tion/-sion · -er/-or",
+    available: true,
+  },
+  {
+    id: "adj-suffix",
+    path: "/pratice/adj-suffix",
+    title: "Hậu tố → tính từ",
+    subtitle: "-ful · -less · -able · -ous/-al/-ive",
     available: true,
   },
 ];

@@ -13,9 +13,15 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as EditRouteImport } from './routes/edit'
 import { Route as PraticeRouteImport } from './routes/pratice'
 import { Route as PraticeIndexRouteImport } from './routes/pratice/index'
+import { Route as PraticeAdjSuffixRouteImport } from './routes/pratice/adj-suffix'
+import { Route as PraticeAdvCompareRouteImport } from './routes/pratice/adv-compare'
 import { Route as PraticeCompareRouteImport } from './routes/pratice/compare'
 import { Route as PraticeEdRouteImport } from './routes/pratice/ed'
+import { Route as PraticeIngRouteImport } from './routes/pratice/ing'
 import { Route as PraticeLyRouteImport } from './routes/pratice/ly'
+import { Route as PraticeNegPrefixRouteImport } from './routes/pratice/neg-prefix'
+import { Route as PraticeNounSuffixRouteImport } from './routes/pratice/noun-suffix'
+import { Route as PraticePluralsRouteImport } from './routes/pratice/plurals'
 import { Route as PraticeSEsRouteImport } from './routes/pratice/s-es'
 
 const IndexRoute = IndexRouteImport.update({
@@ -38,6 +44,16 @@ const PraticeIndexRoute = PraticeIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PraticeRoute,
 } as any)
+const PraticeAdjSuffixRoute = PraticeAdjSuffixRouteImport.update({
+  id: '/adj-suffix',
+  path: '/adj-suffix',
+  getParentRoute: () => PraticeRoute,
+} as any)
+const PraticeAdvCompareRoute = PraticeAdvCompareRouteImport.update({
+  id: '/adv-compare',
+  path: '/adv-compare',
+  getParentRoute: () => PraticeRoute,
+} as any)
 const PraticeCompareRoute = PraticeCompareRouteImport.update({
   id: '/compare',
   path: '/compare',
@@ -48,9 +64,29 @@ const PraticeEdRoute = PraticeEdRouteImport.update({
   path: '/ed',
   getParentRoute: () => PraticeRoute,
 } as any)
+const PraticeIngRoute = PraticeIngRouteImport.update({
+  id: '/ing',
+  path: '/ing',
+  getParentRoute: () => PraticeRoute,
+} as any)
 const PraticeLyRoute = PraticeLyRouteImport.update({
   id: '/ly',
   path: '/ly',
+  getParentRoute: () => PraticeRoute,
+} as any)
+const PraticeNegPrefixRoute = PraticeNegPrefixRouteImport.update({
+  id: '/neg-prefix',
+  path: '/neg-prefix',
+  getParentRoute: () => PraticeRoute,
+} as any)
+const PraticeNounSuffixRoute = PraticeNounSuffixRouteImport.update({
+  id: '/noun-suffix',
+  path: '/noun-suffix',
+  getParentRoute: () => PraticeRoute,
+} as any)
+const PraticePluralsRoute = PraticePluralsRouteImport.update({
+  id: '/plurals',
+  path: '/plurals',
   getParentRoute: () => PraticeRoute,
 } as any)
 const PraticeSEsRoute = PraticeSEsRouteImport.update({
@@ -63,18 +99,30 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/edit': typeof EditRoute
   '/pratice': typeof PraticeRouteWithChildren
+  '/pratice/adj-suffix': typeof PraticeAdjSuffixRoute
+  '/pratice/adv-compare': typeof PraticeAdvCompareRoute
   '/pratice/compare': typeof PraticeCompareRoute
   '/pratice/ed': typeof PraticeEdRoute
+  '/pratice/ing': typeof PraticeIngRoute
   '/pratice/ly': typeof PraticeLyRoute
+  '/pratice/neg-prefix': typeof PraticeNegPrefixRoute
+  '/pratice/noun-suffix': typeof PraticeNounSuffixRoute
+  '/pratice/plurals': typeof PraticePluralsRoute
   '/pratice/s-es': typeof PraticeSEsRoute
   '/pratice/': typeof PraticeIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/edit': typeof EditRoute
+  '/pratice/adj-suffix': typeof PraticeAdjSuffixRoute
+  '/pratice/adv-compare': typeof PraticeAdvCompareRoute
   '/pratice/compare': typeof PraticeCompareRoute
   '/pratice/ed': typeof PraticeEdRoute
+  '/pratice/ing': typeof PraticeIngRoute
   '/pratice/ly': typeof PraticeLyRoute
+  '/pratice/neg-prefix': typeof PraticeNegPrefixRoute
+  '/pratice/noun-suffix': typeof PraticeNounSuffixRoute
+  '/pratice/plurals': typeof PraticePluralsRoute
   '/pratice/s-es': typeof PraticeSEsRoute
   '/pratice': typeof PraticeIndexRoute
 }
@@ -83,9 +131,15 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/edit': typeof EditRoute
   '/pratice': typeof PraticeRouteWithChildren
+  '/pratice/adj-suffix': typeof PraticeAdjSuffixRoute
+  '/pratice/adv-compare': typeof PraticeAdvCompareRoute
   '/pratice/compare': typeof PraticeCompareRoute
   '/pratice/ed': typeof PraticeEdRoute
+  '/pratice/ing': typeof PraticeIngRoute
   '/pratice/ly': typeof PraticeLyRoute
+  '/pratice/neg-prefix': typeof PraticeNegPrefixRoute
+  '/pratice/noun-suffix': typeof PraticeNounSuffixRoute
+  '/pratice/plurals': typeof PraticePluralsRoute
   '/pratice/s-es': typeof PraticeSEsRoute
   '/pratice/': typeof PraticeIndexRoute
 }
@@ -95,18 +149,30 @@ export interface FileRouteTypes {
     | '/'
     | '/edit'
     | '/pratice'
+    | '/pratice/adj-suffix'
+    | '/pratice/adv-compare'
     | '/pratice/compare'
     | '/pratice/ed'
+    | '/pratice/ing'
     | '/pratice/ly'
+    | '/pratice/neg-prefix'
+    | '/pratice/noun-suffix'
+    | '/pratice/plurals'
     | '/pratice/s-es'
     | '/pratice/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/edit'
+    | '/pratice/adj-suffix'
+    | '/pratice/adv-compare'
     | '/pratice/compare'
     | '/pratice/ed'
+    | '/pratice/ing'
     | '/pratice/ly'
+    | '/pratice/neg-prefix'
+    | '/pratice/noun-suffix'
+    | '/pratice/plurals'
     | '/pratice/s-es'
     | '/pratice'
   id:
@@ -114,9 +180,15 @@ export interface FileRouteTypes {
     | '/'
     | '/edit'
     | '/pratice'
+    | '/pratice/adj-suffix'
+    | '/pratice/adv-compare'
     | '/pratice/compare'
     | '/pratice/ed'
+    | '/pratice/ing'
     | '/pratice/ly'
+    | '/pratice/neg-prefix'
+    | '/pratice/noun-suffix'
+    | '/pratice/plurals'
     | '/pratice/s-es'
     | '/pratice/'
   fileRoutesById: FileRoutesById
@@ -157,6 +229,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PraticeIndexRouteImport
       parentRoute: typeof PraticeRoute
     }
+    '/pratice/adj-suffix': {
+      id: '/pratice/adj-suffix'
+      path: '/adj-suffix'
+      fullPath: '/pratice/adj-suffix'
+      preLoaderRoute: typeof PraticeAdjSuffixRouteImport
+      parentRoute: typeof PraticeRoute
+    }
+    '/pratice/adv-compare': {
+      id: '/pratice/adv-compare'
+      path: '/adv-compare'
+      fullPath: '/pratice/adv-compare'
+      preLoaderRoute: typeof PraticeAdvCompareRouteImport
+      parentRoute: typeof PraticeRoute
+    }
     '/pratice/compare': {
       id: '/pratice/compare'
       path: '/compare'
@@ -171,11 +257,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PraticeEdRouteImport
       parentRoute: typeof PraticeRoute
     }
+    '/pratice/ing': {
+      id: '/pratice/ing'
+      path: '/ing'
+      fullPath: '/pratice/ing'
+      preLoaderRoute: typeof PraticeIngRouteImport
+      parentRoute: typeof PraticeRoute
+    }
     '/pratice/ly': {
       id: '/pratice/ly'
       path: '/ly'
       fullPath: '/pratice/ly'
       preLoaderRoute: typeof PraticeLyRouteImport
+      parentRoute: typeof PraticeRoute
+    }
+    '/pratice/neg-prefix': {
+      id: '/pratice/neg-prefix'
+      path: '/neg-prefix'
+      fullPath: '/pratice/neg-prefix'
+      preLoaderRoute: typeof PraticeNegPrefixRouteImport
+      parentRoute: typeof PraticeRoute
+    }
+    '/pratice/noun-suffix': {
+      id: '/pratice/noun-suffix'
+      path: '/noun-suffix'
+      fullPath: '/pratice/noun-suffix'
+      preLoaderRoute: typeof PraticeNounSuffixRouteImport
+      parentRoute: typeof PraticeRoute
+    }
+    '/pratice/plurals': {
+      id: '/pratice/plurals'
+      path: '/plurals'
+      fullPath: '/pratice/plurals'
+      preLoaderRoute: typeof PraticePluralsRouteImport
       parentRoute: typeof PraticeRoute
     }
     '/pratice/s-es': {
@@ -189,17 +303,29 @@ declare module '@tanstack/react-router' {
 }
 
 interface PraticeRouteChildren {
+  PraticeAdjSuffixRoute: typeof PraticeAdjSuffixRoute
+  PraticeAdvCompareRoute: typeof PraticeAdvCompareRoute
   PraticeCompareRoute: typeof PraticeCompareRoute
   PraticeEdRoute: typeof PraticeEdRoute
+  PraticeIngRoute: typeof PraticeIngRoute
   PraticeLyRoute: typeof PraticeLyRoute
+  PraticeNegPrefixRoute: typeof PraticeNegPrefixRoute
+  PraticeNounSuffixRoute: typeof PraticeNounSuffixRoute
+  PraticePluralsRoute: typeof PraticePluralsRoute
   PraticeSEsRoute: typeof PraticeSEsRoute
   PraticeIndexRoute: typeof PraticeIndexRoute
 }
 
 const PraticeRouteChildren: PraticeRouteChildren = {
+  PraticeAdjSuffixRoute: PraticeAdjSuffixRoute,
+  PraticeAdvCompareRoute: PraticeAdvCompareRoute,
   PraticeCompareRoute: PraticeCompareRoute,
   PraticeEdRoute: PraticeEdRoute,
+  PraticeIngRoute: PraticeIngRoute,
   PraticeLyRoute: PraticeLyRoute,
+  PraticeNegPrefixRoute: PraticeNegPrefixRoute,
+  PraticeNounSuffixRoute: PraticeNounSuffixRoute,
+  PraticePluralsRoute: PraticePluralsRoute,
   PraticeSEsRoute: PraticeSEsRoute,
   PraticeIndexRoute: PraticeIndexRoute,
 }
