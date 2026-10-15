@@ -1,6 +1,6 @@
 export type PracticeTopic = {
   id: string;
-  path: "/pratice/ed" | "/pratice/s-es";
+  path: "/pratice/ed" | "/pratice/s-es" | "/pratice/ly" | "/pratice/compare";
   title: string;
   subtitle: string;
   available: boolean;
@@ -20,6 +20,20 @@ export const PRACTICE_TOPICS: PracticeTopic[] = [
     path: "/pratice/ed",
     title: "Quy tắc -ed",
     subtitle: "V2 / V3 — quá khứ & quá khứ phân từ",
+    available: true,
+  },
+  {
+    id: "ly",
+    path: "/pratice/ly",
+    title: "Tính từ → trạng từ (-ly)",
+    subtitle: "Thêm -ly, trường hợp đặc biệt & bất quy tắc",
+    available: true,
+  },
+  {
+    id: "compare",
+    path: "/pratice/compare",
+    title: "So sánh hơn / nhất",
+    subtitle: "-er / -est · more / most · bất quy tắc",
     available: true,
   },
 ];

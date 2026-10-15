@@ -13,7 +13,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as EditRouteImport } from './routes/edit'
 import { Route as PraticeRouteImport } from './routes/pratice'
 import { Route as PraticeIndexRouteImport } from './routes/pratice/index'
+import { Route as PraticeCompareRouteImport } from './routes/pratice/compare'
 import { Route as PraticeEdRouteImport } from './routes/pratice/ed'
+import { Route as PraticeLyRouteImport } from './routes/pratice/ly'
 import { Route as PraticeSEsRouteImport } from './routes/pratice/s-es'
 
 const IndexRoute = IndexRouteImport.update({
@@ -36,9 +38,19 @@ const PraticeIndexRoute = PraticeIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PraticeRoute,
 } as any)
+const PraticeCompareRoute = PraticeCompareRouteImport.update({
+  id: '/compare',
+  path: '/compare',
+  getParentRoute: () => PraticeRoute,
+} as any)
 const PraticeEdRoute = PraticeEdRouteImport.update({
   id: '/ed',
   path: '/ed',
+  getParentRoute: () => PraticeRoute,
+} as any)
+const PraticeLyRoute = PraticeLyRouteImport.update({
+  id: '/ly',
+  path: '/ly',
   getParentRoute: () => PraticeRoute,
 } as any)
 const PraticeSEsRoute = PraticeSEsRouteImport.update({
@@ -51,14 +63,18 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/edit': typeof EditRoute
   '/pratice': typeof PraticeRouteWithChildren
+  '/pratice/compare': typeof PraticeCompareRoute
   '/pratice/ed': typeof PraticeEdRoute
+  '/pratice/ly': typeof PraticeLyRoute
   '/pratice/s-es': typeof PraticeSEsRoute
   '/pratice/': typeof PraticeIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/edit': typeof EditRoute
+  '/pratice/compare': typeof PraticeCompareRoute
   '/pratice/ed': typeof PraticeEdRoute
+  '/pratice/ly': typeof PraticeLyRoute
   '/pratice/s-es': typeof PraticeSEsRoute
   '/pratice': typeof PraticeIndexRoute
 }
@@ -67,22 +83,40 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/edit': typeof EditRoute
   '/pratice': typeof PraticeRouteWithChildren
+  '/pratice/compare': typeof PraticeCompareRoute
   '/pratice/ed': typeof PraticeEdRoute
+  '/pratice/ly': typeof PraticeLyRoute
   '/pratice/s-es': typeof PraticeSEsRoute
   '/pratice/': typeof PraticeIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/edit' | '/pratice' | '/pratice/ed' | '/pratice/s-es' | '/pratice/'
+    | '/'
+    | '/edit'
+    | '/pratice'
+    | '/pratice/compare'
+    | '/pratice/ed'
+    | '/pratice/ly'
+    | '/pratice/s-es'
+    | '/pratice/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/edit' | '/pratice/ed' | '/pratice/s-es' | '/pratice'
+  to:
+    | '/'
+    | '/edit'
+    | '/pratice/compare'
+    | '/pratice/ed'
+    | '/pratice/ly'
+    | '/pratice/s-es'
+    | '/pratice'
   id:
     | '__root__'
     | '/'
     | '/edit'
     | '/pratice'
+    | '/pratice/compare'
     | '/pratice/ed'
+    | '/pratice/ly'
     | '/pratice/s-es'
     | '/pratice/'
   fileRoutesById: FileRoutesById
@@ -123,11 +157,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PraticeIndexRouteImport
       parentRoute: typeof PraticeRoute
     }
+    '/pratice/compare': {
+      id: '/pratice/compare'
+      path: '/compare'
+      fullPath: '/pratice/compare'
+      preLoaderRoute: typeof PraticeCompareRouteImport
+      parentRoute: typeof PraticeRoute
+    }
     '/pratice/ed': {
       id: '/pratice/ed'
       path: '/ed'
       fullPath: '/pratice/ed'
       preLoaderRoute: typeof PraticeEdRouteImport
+      parentRoute: typeof PraticeRoute
+    }
+    '/pratice/ly': {
+      id: '/pratice/ly'
+      path: '/ly'
+      fullPath: '/pratice/ly'
+      preLoaderRoute: typeof PraticeLyRouteImport
       parentRoute: typeof PraticeRoute
     }
     '/pratice/s-es': {
@@ -141,13 +189,17 @@ declare module '@tanstack/react-router' {
 }
 
 interface PraticeRouteChildren {
+  PraticeCompareRoute: typeof PraticeCompareRoute
   PraticeEdRoute: typeof PraticeEdRoute
+  PraticeLyRoute: typeof PraticeLyRoute
   PraticeSEsRoute: typeof PraticeSEsRoute
   PraticeIndexRoute: typeof PraticeIndexRoute
 }
 
 const PraticeRouteChildren: PraticeRouteChildren = {
+  PraticeCompareRoute: PraticeCompareRoute,
   PraticeEdRoute: PraticeEdRoute,
+  PraticeLyRoute: PraticeLyRoute,
   PraticeSEsRoute: PraticeSEsRoute,
   PraticeIndexRoute: PraticeIndexRoute,
 }
